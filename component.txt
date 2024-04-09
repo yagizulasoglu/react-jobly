@@ -1,0 +1,25 @@
+
+
+Header
+        -JoblyHome Link to homepage
+        - Comp Link to Companies List
+        - Jobs Link to Jobs List
+
+JoblyApp
+- SearchBar
+  State -> searchTerm("");
+- Companies
+  Prop -> searchTerm("");
+  State -> CompaniesList(API);
+  - Company
+  Prop -> CompanyName
+  State -> JobListForThatCompany(API);
+-Jobs
+  Prop -> searchTerm("");
+  State -> JobsList(API);
+
+- CompanyCards
+  Prop -> [{}]
+
+- JobCards
+  Prop -> [{}]
