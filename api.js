@@ -45,12 +45,45 @@ class JoblyApi {
 
   // Individual API routes
 
+  // COMPANIES
+
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
     return res.company;
   }
+
+  static async searchCompany(queryParam) {
+    let res = await this.request(`companies?nameLike=${queryParam}`);
+    return res.companies;
+  }
+
+  /** Get all companies. */
+
+  static async getAllCompanies() {
+    let res = await this.request('companies/');
+    return res.companies;
+  }
+
+  //JOBS
+
+  /** Get all jobs. */
+
+  static async getAllJobs() {
+    let res = await this.request('jobs/');
+    return res.jobs;
+  }
+
+
+  /** Search by job title. */
+
+  static async searchJobs(queryParam) {
+    let res = await this.request(`jobs?title=${queryParam}`);
+    return res.jobs;
+  }
+
+
 
   // obviously, you'll add a lot here ...
 }
