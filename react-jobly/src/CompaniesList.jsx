@@ -8,37 +8,48 @@ import JoblyApi from "../../api";
  *  companiesList
  *
  * Props:
+ * none
  *
  * App -> RoutesList -> CompaniesList
  */
 
 function CompaniesList() {
   const [companiesList, setCompaniesList] = useState([]);
+  const [stage, setStage] = useState("All companies");
 
+  /** Calls API to display all companies. */
   useEffect(function fetchAllCompanies() {
     async function fetchCompanies() {
       const companiesArray = await JoblyApi.getAllCompanies();
       setCompaniesList(companiesArray);
     }
     fetchCompanies();
-    console.log(companiesList);
-  }, [])
-//TODO: Look at api.js!!
+  }, []);
+
   async function search(word) {
-    const searched = await JoblyApi.searchCompany(word);
+    let userWord = word.trim();
+    const searched = await JoblyApi.searchCompany(userWord);
     setCompaniesList(searched);
-    console.log(searched);
+    if (userWord === "") {
+      setStage("All companies");
+    } else if (search.length === 0) {
+      setStage(`Search results for "${userWord}"
+      Sorry, no results were found!`);
+    } else {
+      setStage(`Search results for "${userWord}"`);
+    }
   }
 
   return (
     <div className="CompaniesList">
-      <h1>Companies</h1>
-      <SearchForm handleSearch={search}/>
+      <SearchForm handleSearch={search} />
+      <h1>{stage}</h1>
       <ul>
-      {companiesList.map(company => (
-        <li key={company.handle}>
-          <CompanyCard company={company}/>
-        </li>))}
+        {companiesList.map((company) => (
+          <li key={company.handle}>
+            <CompanyCard company={company} />
+          </li>
+        ))}
       </ul>
     </div>
   );

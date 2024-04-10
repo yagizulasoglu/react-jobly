@@ -13,14 +13,14 @@ import JobCard from "./JobCard";
  * App -> RoutesList -> JobsList -> JobCardList
  */
 
-function JobCardList({ jobsList = "" }) {
+function JobCardList({ jobsList = [] }) {
   return (
     <div className="JobCardList">
-      <h1>jobs</h1>
-      <JobCard />
-      <JobCard />
-      <JobCard />
-      <JobCard />
+      {jobsList.map((job) => (
+        <div key={job.id}>
+          <JobCard jobData={job} />{" "}
+        </div>
+      ))}
     </div>
   );
 }

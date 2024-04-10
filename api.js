@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API Class.
  *
@@ -46,7 +46,7 @@ class JoblyApi {
   // Individual API routes
 
   // COMPANIES
-
+  
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
@@ -55,7 +55,12 @@ class JoblyApi {
   }
 
   static async searchCompany(queryParam) {
-    let res = await this.request(`companies?nameLike=${queryParam}`);
+    queryParam = queryParam.trim();
+    let searchTerm = {};
+    if (queryParam) {
+      searchTerm = { nameLike: `${queryParam}` };
+    }
+    let res = await this.request(`companies`, searchTerm);
     return res.companies;
   }
 
@@ -79,7 +84,12 @@ class JoblyApi {
   /** Search by job title. */
 
   static async searchJobs(queryParam) {
-    let res = await this.request(`jobs?title=${queryParam}`);
+    queryParam = queryParam.trim();
+    let searchTerm = {};
+    if (queryParam) {
+      searchTerm = { title: `${queryParam}` };
+    }
+    let res = await this.request("jobs", searchTerm);
     return res.jobs;
   }
 

@@ -1,6 +1,5 @@
 import { useState, React } from "react";
 
-
 /**
  * Renders JobCard.
  *
@@ -14,14 +13,13 @@ import { useState, React } from "react";
  * App -> RoutesList -> JobsList -> JobCardList -> JobCard
  */
 
-function JobCard({jobData=""}) {
-
+function JobCard({ jobData = {} }) {
   return (
     <div className="JobCard">
-        <h1>Job Title</h1>
-      {/* <h1>{jobData.title}</h1>
+      <h1>{jobData.title}</h1>
       <h3>{jobData.companyHandle}</h3>
-      <h2>{jobData.salary}</h2> */}
+      <h2>{jobData.salary}</h2>
+      <h2>{jobData.equity}</h2>
     </div>
   );
 }

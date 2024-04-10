@@ -13,11 +13,11 @@ import JoblyApi from "../../api";
  * App -> RoutesList -> CompanyDetail
  */
 
-function Company() {
+//TODO: if company doesn't exist redirect w error mes.
+function CompanyDetails() {
     const [companyData, setCompanyData] = useState({});
 
     const {handle} = useParams();
-
 
     useEffect(function fetchNewCompany() {
       async function fetchCompany() {
@@ -36,4 +36,4 @@ function Company() {
   )
 }
 
-export default Company;
+export default CompanyDetails;

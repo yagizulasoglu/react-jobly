@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 /**
  * State:
- *
+ *  none
  *
  * Props:
  * company
