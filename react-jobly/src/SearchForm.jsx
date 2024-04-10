@@ -14,24 +14,23 @@ import React, { useState } from "react";
  */
 
 function SearchForm({handleSearch}) {
-  const [term, setTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   function handleChange(evt) {
-    setTerm(evt.target.value);
+    setSearchTerm(evt.target.value);
   }
-//TODO: Look at api.js!!
+
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(term);
-    console.log("we are here searchform");
-    setTerm("");
+    handleSearch(searchTerm);
+    setSearchTerm("");
   }
 
 
   return (
     <div>
     <form onSubmit={handleSubmit}>
-      <input value={term} onChange={handleChange} />
+      <input value={searchTerm} onChange={handleChange} />
       <button>Search!</button>
     </form>
     </div>

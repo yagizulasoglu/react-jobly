@@ -5,7 +5,9 @@ import JoblyApi from "../../api";
 
 /**
  * State:
- *  companyData like {}
+ *  companyData: {}
+ *  errors: []
+ * loading: boolean
 *
 * Props:
  *
@@ -13,27 +15,40 @@ import JoblyApi from "../../api";
  * App -> RoutesList -> CompanyDetail
  */
 
-//TODO: if company doesn't exist redirect w error mes.
+
 function CompanyDetails() {
-    const [companyData, setCompanyData] = useState({});
+  const [companyData, setCompanyData] = useState({});
+  const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const {handle} = useParams();
+  const { handle } = useParams();
 
-    useEffect(function fetchNewCompany() {
-      async function fetchCompany() {
+
+  useEffect(function fetchNewCompany() {
+    setLoading(true);
+    async function fetchCompany() {
+      try {
         const companyInfo = await JoblyApi.getCompany(handle);
         setCompanyData(companyInfo);
+        setLoading(false);
+      } catch (err) {
+        setErrors([err]);
+        setLoading(false);
       }
-      fetchCompany();
-    }, [])
+    }
+    fetchCompany();
+  }, []);
 
-  return(
+
+  return (
     <div className="Company">
-    <h3>{companyData.name}</h3>
-    <p>{companyData.description}</p>
-    <JobCardList jobsList={companyData.jobs}/>
+      {loading ? <p>Loading...</p> : <div>
+        {errors.length > 0 ? <h1>{errors[0]}</h1> : <div> <h3>{companyData.name}</h3>
+          <p>{companyData.description}</p>
+          <JobCardList jobsList={companyData.jobs} /> </div>}
+      </div>}
     </div>
-  )
+  );
 }
 
 export default CompanyDetails;

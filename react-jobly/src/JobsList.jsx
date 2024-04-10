@@ -8,6 +8,7 @@ import JoblyApi from "../../api";
  *
  * State:
  *  jobslist (api)
+ *  titleAndLoading: {title, loading}
  *
  * Props:
  * none
@@ -18,36 +19,41 @@ import JoblyApi from "../../api";
 
 function JobsList() {
   const [jobsList, setJobsList] = useState([]);
-  const [stage, setStage] = useState("All jobs");
+  const [titleAndLoading, setTitleAndLoading] = useState({ title: "All jobs", loading: true });
 
   /** Calls API to display all jobs. */
-  useEffect(() => {
+  useEffect(function fetchJobs() {
+    setTitleAndLoading({ ...titleAndLoading, loading: true });
     async function fetchAllJobs() {
       const jobs = await JoblyApi.getAllJobs();
       setJobsList(jobs);
+      setTitleAndLoading({ ...titleAndLoading, loading: false });
     }
     fetchAllJobs();
   }, []);
 
   async function search(word) {
+    setTitleAndLoading({ ...titleAndLoading, loading: true });
     let userWord = word.trim();
     const searched = await JoblyApi.searchJobs(userWord);
     setJobsList(searched);
     if (userWord === "") {
-      setStage("All jobs");
-    } else if (search.length === 0) {
-      setStage(`Search results for "${userWord}"
-        Sorry, no results were found!`);
+      setTitleAndLoading({ title: "All jobs", loading: false });
+    } else if (searched.length === 0) {
+      setTitleAndLoading({ title: `Search results for "${userWord}" - Sorry, no results were found!`, loading: false });
     } else {
-      setStage(`Search results for "${userWord}"`);
+      setTitleAndLoading({ title: `Search results for "${userWord}"`, loading: false });
     }
   }
 
   return (
     <div className="JobsList">
-      <SearchForm handleSearch={search} />
-      <h1>{stage}</h1>
-      <JobCardList jobsList={jobsList} />
+      {titleAndLoading.loading ? <p>Loading...</p> :
+        <div>
+          <SearchForm handleSearch={search} />
+          <h1>{titleAndLoading.title}</h1>
+          <JobCardList jobsList={jobsList} />
+        </div>}
     </div>
   );
 }

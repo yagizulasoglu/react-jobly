@@ -6,6 +6,7 @@ import JoblyApi from "../../api";
 /**
  * State:
  *  companiesList
+ *  titleAndLoading: {title, loading}
  *
  * Props:
  * none
@@ -15,42 +16,46 @@ import JoblyApi from "../../api";
 
 function CompaniesList() {
   const [companiesList, setCompaniesList] = useState([]);
-  const [stage, setStage] = useState("All companies");
+  const [titleAndLoading, setTitleAndLoading] = useState({ title: "All companies", loading: true });
 
   /** Calls API to display all companies. */
   useEffect(function fetchAllCompanies() {
+    setTitleAndLoading({...titleAndLoading, loading:true});
     async function fetchCompanies() {
-      const companiesArray = await JoblyApi.getAllCompanies();
-      setCompaniesList(companiesArray);
+      const companies = await JoblyApi.getAllCompanies();
+      setCompaniesList(companies);
+      setTitleAndLoading({ ...titleAndLoading, loading: false });
     }
     fetchCompanies();
   }, []);
 
   async function search(word) {
+    setTitleAndLoading({...titleAndLoading, loading:true});
     let userWord = word.trim();
     const searched = await JoblyApi.searchCompany(userWord);
     setCompaniesList(searched);
     if (userWord === "") {
-      setStage("All companies");
-    } else if (search.length === 0) {
-      setStage(`Search results for "${userWord}"
-      Sorry, no results were found!`);
+      setTitleAndLoading({ title: "All companies", loading: false });
+    } else if (searched.length === 0) {
+      setTitleAndLoading({ title: `Search results for "${userWord}" - Sorry, no results were found!`, loading: false });
     } else {
-      setStage(`Search results for "${userWord}"`);
+      setTitleAndLoading({ title: `Search results for "${userWord}"`, loading: false });
     }
   }
 
   return (
     <div className="CompaniesList">
-      <SearchForm handleSearch={search} />
-      <h1>{stage}</h1>
-      <ul>
-        {companiesList.map((company) => (
-          <li key={company.handle}>
-            <CompanyCard company={company} />
-          </li>
-        ))}
-      </ul>
+      {titleAndLoading.loading ? <p>Loading...</p> : <div>
+        <SearchForm handleSearch={search} />
+        <h1>{titleAndLoading.title}</h1>
+        <ul>
+          {companiesList.map((company) => (
+            <li key={company.handle}>
+              <CompanyCard company={company} />
+            </li>
+          ))}
+        </ul>
+      </div>}
     </div>
   );
 }
