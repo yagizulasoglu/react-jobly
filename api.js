@@ -94,6 +94,30 @@ class JoblyApi {
   }
 
 
+  /** Login user. */
+
+  static async login(username, password) {
+    let userInfo = { username, password };
+    let res = await this.request("auth/token", userInfo, "POST");
+    return res.token;
+  }
+
+  /** Signup new user. */
+
+  static async signup(username, password, firstname, lastname, email) {
+    let newUserInfo = { username, password, firstname, lastname, email };
+    let res = await this.request("auth/register", newUserInfo, "POST");
+    return res.token;
+  }
+
+  /** Edit user profile. */
+
+  static async editProfile(username, firstname, lastname, email) {
+    let editedUserInfo = { username, firstname, lastname, email };
+    let res = await this.request(`users/${username}`, editedUserInfo, "PATCH");
+    return res;
+  }
+
 
   // obviously, you'll add a lot here ...
 }
