@@ -8,6 +8,7 @@ import Navbar from "./Navbar.jsx";
  * Props: none
  * State: none
  *
+ * App -> Navbar / RoutesList
  */
 
 function App() {

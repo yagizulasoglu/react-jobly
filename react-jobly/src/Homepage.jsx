@@ -8,6 +8,8 @@ import React from "react"
  *
  * Props:
  * none
+ *
+ * App -> RoutesList -> Homepage
  */
 
 export default function Homepage(){

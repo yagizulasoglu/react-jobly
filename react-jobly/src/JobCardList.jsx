@@ -9,6 +9,8 @@ import JobCard from "./JobCard";
  *
  * Props:
  *  jobsList
+ *
+ * App -> RoutesList -> JobsList -> JobCardList
  */
 
 function JobCardList({ jobsList = "" }) {

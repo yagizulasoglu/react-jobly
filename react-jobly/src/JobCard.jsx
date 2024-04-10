@@ -10,6 +10,8 @@ import { useState, React } from "react";
  * Props:
  * jobData
  *
+ *
+ * App -> RoutesList -> JobsList -> JobCardList -> JobCard
  */
 
 function JobCard({jobData=""}) {

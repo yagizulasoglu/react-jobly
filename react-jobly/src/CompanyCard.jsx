@@ -6,14 +6,17 @@ import { Link } from "react-router-dom";
  *
  *
  * Props:
- * companiesList
+ * company
+ *
+ * App -> RoutesList -> CompaniesList -> CompanyCard
  */
 
-export default function CompanyCard({ companiesList }) {
+export default function CompanyCard({ company }) {
   return (
     <div className="CompanyCard">
-      <Link to="/companies/:handle">
-        <h1>Company info..</h1>
+      <Link to={`/companies/${company.handle}`}>
+        <h4>{company.handle}</h4>
+        <p>{company.description}</p>
       </Link>
     </div>
   );

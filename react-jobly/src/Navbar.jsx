@@ -10,6 +10,8 @@ import { NavLink } from "react-router-dom";
  * Props:
  *  none
  *
+ *
+ * App -> Navbar
  */
 
 export default function Navbar() {

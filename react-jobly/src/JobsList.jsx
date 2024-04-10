@@ -1,5 +1,6 @@
 import { useState, React } from "react";
 import JobCardList from "./JobCardList";
+import SearchForm from "./SearchForm";
 
 /**
  * Renders list of jobs.
@@ -9,6 +10,8 @@ import JobCardList from "./JobCardList";
  *
  * Props:
  *
+ *
+ * App -> RoutesList -> JobsList
  */
 
 function JobsList() {
@@ -16,6 +19,7 @@ function JobsList() {
 
   return (
     <div className="JobsList">
+      <SearchForm />
       <h1>jobs</h1>
         <JobCardList />
     </div>
