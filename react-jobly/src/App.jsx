@@ -1,5 +1,5 @@
 import { React, useState, Route, Routes } from "react";
-import { BrowserRouter, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import RoutesList from "./RoutesList.jsx";
 import Navbar from "./Navbar.jsx";
 import userContext from "./userContext.js";
@@ -33,9 +33,6 @@ function App() {
       email
     );
     setUserAndToken({...userAndToken, token: newUserFromAPI});
-    if(newUserFromAPI) {
-      return <Navigate to="/" />;
-    }
   }
 
   /** Calls api to retrieve user information and returns updated user info. */
@@ -58,7 +55,7 @@ function App() {
   return (
     <div className="App">
       <main>
-        <userContext.Provider value={{ userAndToken: null }}>
+        <userContext.Provider value={{ userAndToken }}>
           <BrowserRouter>
             <Navbar />
             <RoutesList userFunctions={userFunctions}/>

@@ -1,4 +1,6 @@
-import { useState, React } from "react";
+import { useState, React, useContext } from "react";
+import userContext from "./userContext";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Renders Login.
@@ -14,6 +16,8 @@ import { useState, React } from "react";
 
 export default function Login({ handleSave }) {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const { userAndToken } = useContext(userContext);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -28,7 +32,11 @@ export default function Login({ handleSave }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleSave(formData);
-    setFormData({});
+    setFormData({ username: "",
+    password: ""});
+  }
+  if (userAndToken.token) {
+    navigate("/");
   }
 
   return (

@@ -1,4 +1,6 @@
-import { useState, React } from "react";
+import { useState, React, useContext } from "react";
+import userContext from "./userContext";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Renders Profile.
@@ -11,9 +13,11 @@ import { useState, React } from "react";
  *
  * App -> RoutesList -> Profile
  */
-
+//TODO: useEffect to pull user data from api and preload form in put in state.
 export default function Profile({ handleSave }) {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const { userAndToken } = useContext(userContext);
 
   /** Update form input. */
   function handleChange(evt) {

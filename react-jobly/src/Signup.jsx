@@ -1,4 +1,7 @@
-import { useState, React } from "react";
+import { useState, React, useContext } from "react";
+import userContext from "./userContext";
+import { useNavigate } from "react-router-dom";
+
 /**
  * Renders Signup.
  *
@@ -13,6 +16,8 @@ import { useState, React } from "react";
 
 export default function Signup({ handleSave }) {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const { userAndToken } = useContext(userContext);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -27,8 +32,17 @@ export default function Signup({ handleSave }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleSave(formData);
-    setFormData({username: "", password: "", firstName: "", lastName: "", email: ""});
+    setFormData({
+      username: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+    });
   }
+  if (userAndToken.token) {
+      navigate("/");
+    }
 
   return (
     <form className="Profile-form" onSubmit={handleSubmit}>
@@ -60,7 +74,7 @@ export default function Signup({ handleSave }) {
           id="newSignup-form-firstname"
           name="firstName"
           className="form-control"
-          placeholder="Firstname"
+          placeholder="First name"
           onChange={handleChange}
           value={formData.firstName}
           aria-label="firstName"
@@ -71,7 +85,7 @@ export default function Signup({ handleSave }) {
           id="newSignup-form-lastname"
           name="lastName"
           className="form-control"
-          placeholder="Lastname"
+          placeholder="Last name"
           onChange={handleChange}
           value={formData.lastName}
           aria-label="lastName"
