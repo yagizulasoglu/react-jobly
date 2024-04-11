@@ -21,11 +21,11 @@ import Profile from "./Profile.jsx";
  */
 
 export default function RoutesList({userFunctions}) {
-  const { userAndToken } = useContext(userContext);
+  const { userDetail } = useContext(userContext);
 
   return (
     <div>
-        {userAndToken?.token ?
+        {userDetail?.user ?
       <Routes>
           <Route path="/companies" element={<CompaniesList />} />
           <Route path="/companies/:handle" element={<CompanyDetails />} />

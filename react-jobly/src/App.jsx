@@ -22,24 +22,25 @@ function App() {
   console.log("app renders:", token, "token", userDetail, "userDetail");
 
   /** Calls api to return token on user login. */
-  
+
   async function login(username, password) {
     setIsLoading(true);
     let userFromAPI;
 
     try {
       userFromAPI = await JoblyApi.login(username, password); //returns token
-      JoblyApi.token = userFromAPI;
       setToken(userFromAPI);
       setIsLoading(false);
     } catch (err) {
       setUserDetail({ error: err[0] });
+      setIsLoading(false);
     }
   }
 
   function logout() {
-    setToken({});
-    <Navigate to="/" />;
+    setToken("");
+    setUserDetail({});
+    return <Navigate to="/" />;
   }
 
   /** Calls api to return token on new user signup. */
@@ -54,11 +55,11 @@ function App() {
         lastName,
         email
       );
-      setUserDetail(newUserFromAPI.userDetail);
       setToken(newUserFromAPI.token);
       setIsLoading(false);
     } catch (err) {
       setUserDetail({ error: err[0] });
+      setIsLoading(false);
     }
   }
 
@@ -82,6 +83,7 @@ function App() {
         console.log("useEffect running in App");
         setIsLoading(true);
         if (token) {
+          JoblyApi.token = token;
           let decodedToken = jwtDecode(token)
           let username = decodedToken.username
           username = decodedToken.username;

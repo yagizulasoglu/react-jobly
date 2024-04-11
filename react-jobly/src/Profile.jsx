@@ -16,9 +16,9 @@ import { useNavigate } from "react-router-dom";
 
 //TODO: useEffect to pull user data from api and preload form in put in state.
 export default function Profile({ handleSave }) {
-  const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-  const { userAndToken } = useContext(userContext);
+  const { userDetail } = useContext(userContext);
+  const [formData, setFormData] = useState({username: userDetail.username});
 
   /** Update form input. */
   function handleChange(evt) {

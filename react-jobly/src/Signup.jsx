@@ -16,7 +16,7 @@ import Alert from './Alert.jsx'
  */
 
 export default function Signup({ handleSave }) {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({username: "", password: "", firstName: "", lastName: "", email:""});
   const navigate = useNavigate();
   const { userDetail } = useContext(userContext);
 

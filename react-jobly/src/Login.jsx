@@ -1,6 +1,6 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Alert from "./Alert.jsx";
 
 /**
@@ -14,10 +14,9 @@ import Alert from "./Alert.jsx";
  *
  * App -> RoutesList -> Login
  */
-
+//TODO: Error state in here.
 export default function Login({ handleSave }) {
-  const [formData, setFormData] = useState({});
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({username: "", password: ""});
   const { userDetail } = useContext(userContext);
 
   /** Update form input. */
@@ -32,22 +31,23 @@ export default function Login({ handleSave }) {
   //redirect if successful***
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSave(formData.Username, formData.password);
+    //TODO: try/catch in here, handleSave is async
+    handleSave(formData.username, formData.password);
     setFormData({ username: "", password: "" });
   }
- 
 
-  console.log(userDetail, "userDetail in login comp");
-  if (userDetail?.username) {
-    navigate("/");
+
+  if (userDetail.user) {
+    return <Navigate to="/" />;
   }
+
 
   return (
     <form className="Login-form" onSubmit={handleSubmit}>
       <div className="mb-3">
         <input
           id="newLogin-form-name"
-          name="Username"
+          name="username"
           className="form-control"
           placeholder="Username"
           onChange={handleChange}

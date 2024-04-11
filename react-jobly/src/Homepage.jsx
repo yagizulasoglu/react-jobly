@@ -21,8 +21,8 @@ export default function Homepage(){
     return (
         <main className="Homepage">
             <div>
-                {userDetail?.username ? <div className="Homepage-User">
-                    <h1>Welcome {userDetail.username}</h1>
+                {userDetail?.user?.firstName ? <div className="Homepage-User">
+                    <h1>Welcome {userDetail.user.firstName}</h1>
                     </div> :
                     <div className="Homepage-Anon">
                     <h1>Jobly!</h1>

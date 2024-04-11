@@ -20,12 +20,12 @@ export default function Navbar({logout}) {
   const { userDetail } = useContext(userContext);
   return (
     <div>
-      {userDetail?.username ? <div>
+      {userDetail?.user ? <div>
         <NavLink to="/">Jobly</NavLink>
         <NavLink to="/companies">Companies</NavLink>
         <NavLink to="/jobs">Jobs</NavLink>
         <NavLink to="/profile">Profile</NavLink>
-        <NavLink to="/logout" onClick={logout}>Logout</NavLink>
+        <NavLink to="/logout" onClick={logout}>Logout {userDetail.user.username}</NavLink>
       </div> : <div>
       <NavLink to="/">Jobly</NavLink>
       <NavLink to="/login">Login</NavLink>
