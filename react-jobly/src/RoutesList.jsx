@@ -19,7 +19,7 @@ import Profile from "./Profile.jsx";
  * App -> RoutesList
  */
 
-export default function RoutesList() {
+export default function RoutesList({userFunctions}) {
   return (
     <div>
       <Routes>
@@ -27,9 +27,9 @@ export default function RoutesList() {
         <Route path="/companies" element={<CompaniesList />} />
         <Route path="/companies/:handle" element={<CompanyDetails />} />
         <Route path="/jobs" element={<JobsList />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login handleSave={userFunctions.login}/>} />
+        <Route path="/signup" element={<Signup handleSave={userFunctions.signup}/>} />
+        <Route path="/profile" element={<Profile handleSave={userFunctions.profile}/>} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>

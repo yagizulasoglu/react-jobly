@@ -1,6 +1,4 @@
-import React from "react";
-import LoginForm from "./";
-import { useState } from "react";
+import { useState, React } from "react";
 
 /**
  * Renders Login.

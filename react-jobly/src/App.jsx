@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { React, useState, Route, Routes } from "react";
+import { BrowserRouter, Navigate, useNavigate } from "react-router-dom";
 import RoutesList from "./RoutesList.jsx";
 import Navbar from "./Navbar.jsx";
 import userContext from "./userContext.js";
@@ -17,32 +17,42 @@ function App() {
   const [userAndToken, setUserAndToken] = useState({});
 
   /** Calls api to return token on user login. */
-  async function login({ username, password }) {
+  async function login(username, password) {
     const userFromAPI = await JoblyApi.login(username, password);
     setUserAndToken(userFromAPI);
   }
 
+
   /** Calls api to return token on new user signup. */
-  async function signup({ username, password, firstname, lastname, email }) {
+  async function signup({username, password, firstName, lastName, email}) {
     const newUserFromAPI = await JoblyApi.signup(
       username,
       password,
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email
     );
-    setUserAndToken(newUserFromAPI);
+    setUserAndToken({...userAndToken, token: newUserFromAPI});
+    if(newUserFromAPI) {
+      return <Navigate to="/" />;
+    }
   }
 
   /** Calls api to retrieve user information and returns updated user info. */
-  async function profile({ username, firstname, lastname, email }) {
+  async function profile(username, firstName, lastName, email) {
     const userProfileFromAPI = await JoblyApi.editProfile(
       username,
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email
     );
     setUserAndToken(userProfileFromAPI);
+  }
+
+  const userFunctions = {
+    login: login,
+    signup: signup,
+    profile: profile,
   }
 
   return (
@@ -51,7 +61,7 @@ function App() {
         <userContext.Provider value={{ userAndToken: null }}>
           <BrowserRouter>
             <Navbar />
-            <RoutesList />
+            <RoutesList userFunctions={userFunctions}/>
           </BrowserRouter>
         </userContext.Provider>
       </main>

@@ -1,5 +1,4 @@
-import React from "react";
-
+import { useState, React } from "react";
 /**
  * Renders Signup.
  *
@@ -28,7 +27,7 @@ export default function Signup({ handleSave }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleSave(formData);
-    setFormData({});
+    setFormData({username: "", password: "", firstName: "", lastName: "", email: ""});
   }
 
   return (
@@ -36,12 +35,12 @@ export default function Signup({ handleSave }) {
       <div className="mb-3">
         <input
           id="newSignup-form-name"
-          name="Username"
+          name="username"
           className="form-control"
           placeholder="Username"
           onChange={handleChange}
           value={formData.username}
-          aria-label="Username"
+          aria-label="username"
           required
         />
       </div>
@@ -59,23 +58,23 @@ export default function Signup({ handleSave }) {
       <div className="mb-3">
         <textarea
           id="newSignup-form-firstname"
-          name="firstname"
+          name="firstName"
           className="form-control"
           placeholder="Firstname"
           onChange={handleChange}
-          value={formData.firstname}
-          aria-label="firstname"
+          value={formData.firstName}
+          aria-label="firstName"
         />
       </div>
       <div className="mb-3">
         <textarea
           id="newSignup-form-lastname"
-          name="lastname"
+          name="lastName"
           className="form-control"
           placeholder="Lastname"
           onChange={handleChange}
-          value={formData.lastname}
-          aria-label="lastname"
+          value={formData.lastName}
+          aria-label="lastName"
         />
       </div>
       <div className="mb-3">
