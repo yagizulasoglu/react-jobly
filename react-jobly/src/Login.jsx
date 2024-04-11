@@ -18,7 +18,7 @@ import Alert from './Alert.jsx'
 export default function Login({ handleSave }) {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-  const { userAndToken } = useContext(userContext);
+  const { userDetail } = useContext(userContext);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -32,11 +32,11 @@ export default function Login({ handleSave }) {
   //redirect if successful***
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSave(formData);
+    handleSave(formData.Username, formData.password);
     setFormData({ username: "",
     password: ""});
   }
-  if (userAndToken.token) {
+  if (userDetail.username) {
     navigate("/");
   }
 
@@ -65,8 +65,8 @@ export default function Login({ handleSave }) {
           aria-label="Password"
         />
       </div>
-      {userAndToken.error &&
-      <Alert error={userAndToken.error} />}
+      {userDetail.error &&
+      <Alert error={userDetail.error} />}
       <button className="btn-primary rig btn btn-sm newLogin-form-addBtn">
         Login
       </button>

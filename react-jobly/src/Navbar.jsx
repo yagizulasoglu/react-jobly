@@ -1,4 +1,5 @@
-import React from "react";
+import {React, useContext} from "react"
+import userContext from "./userContext";
 import { NavLink } from "react-router-dom";
 
 /*
@@ -8,18 +9,28 @@ import { NavLink } from "react-router-dom";
  *
  *
  * Props:
- *  none
+ *  logout function
  *
  *
  * App -> Navbar
  */
 
-export default function Navbar() {
+export default function Navbar({logout}) {
+
+  const { userDetail } = useContext(userContext);
   return (
     <div>
+      {userDetail?.username ? <div>
+        <NavLink to="/">Jobly</NavLink>
+        <NavLink to="/companies">Companies</NavLink>
+        <NavLink to="/jobs">Jobs</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
+        <NavLink to="/logout" onClick={logout}>Logout</NavLink>
+      </div> : <div>
       <NavLink to="/">Jobly</NavLink>
-      <NavLink to="/companies">Companies</NavLink>
-      <NavLink to="/jobs">Jobs</NavLink>
+      <NavLink to="/login">Login</NavLink>
+      <NavLink to="/signup">Signup</NavLink>
+      </div>}
     </div>
   );
 }

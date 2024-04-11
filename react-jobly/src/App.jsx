@@ -1,5 +1,5 @@
-import { React, useState, Route, Routes } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { React, useState, Route, Routes, useEffect } from "react";
+import { BrowserRouter, Navigate } from "react-router-dom";
 import RoutesList from "./RoutesList.jsx";
 import Navbar from "./Navbar.jsx";
 import userContext from "./userContext.js";
@@ -14,17 +14,25 @@ import JoblyApi from "../../api.js";
  */
 
 function App() {
-  const [userAndToken, setUserAndToken] = useState({});
+  const [userDetail, setUserDetail] = useState({});
+  const [token, setToken] = useState()
 
   /** Calls api to return token on user login. */
   async function login(username, password) {
     let userFromAPI;
     try {
       userFromAPI = await JoblyApi.login(username, password);
-      setUserAndToken({ ...userFromAPI, username: username });
+      setUserDetail({username: username})
+      JoblyApi.token = userFromAPI;
+      setToken(userFromAPI);
     } catch (err) {
-      setUserAndToken({ ...userAndToken, error: err[0] });
+      setUserDetail({ error: err[0] });
     }
+  }
+
+  function logout() {
+    setUserAndToken({});
+    <Navigate to="/" />
   }
 
   /** Calls api to return token on new user signup. */
@@ -38,9 +46,10 @@ function App() {
         lastName,
         email
       );
-      setUserAndToken({ ...userAndToken, token: newUserFromAPI });
+      setUserDetail(newUserFromAPI.userDetail);
+      setToken(newUserFromAPI.token);
     } catch (err) {
-      setUserAndToken({ ...userAndToken, error: err[0] });
+      setUserDetail({ error: err[0] });
     }
   }
 
@@ -62,31 +71,32 @@ function App() {
         let userDetail;
         try {
           userDetail = await Jobly.getUserDetail(
-            userAndToken.username,
-            userAndToken.token
+            userDetail.username,
           );
-          setUserAndToken({ ...userAndToken, userDetail });
+          setUserDetail(userDetail);
+          console.log("userDetail in useEffect", userDetail);
         } catch (err) {
-          setUserAndToken({ ...userAndToken, error: err[0] });
+          setUserDetail({ error: err[0] });
         }
       }
       fetchUserDetail();
     },
-    [userAndToken]
+    [token]
   );
 
   const userFunctions = {
     login: login,
     signup: signup,
     profile: profile,
+    logout: logout,
   };
 
   return (
     <div className="App">
       <main>
-        <userContext.Provider value={{ userAndToken }}>
+        <userContext.Provider value={{ userDetail }}>
           <BrowserRouter>
-            <Navbar />
+            <Navbar logout={userFunctions.logout}/>
             <RoutesList userFunctions={userFunctions} />
           </BrowserRouter>
         </userContext.Provider>

@@ -18,7 +18,7 @@ import Alert from './Alert.jsx'
 export default function Signup({ handleSave }) {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
-  const { userAndToken } = useContext(userContext);
+  const { userDetail } = useContext(userContext);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -41,11 +41,11 @@ export default function Signup({ handleSave }) {
       email: "",
     });
   }
-  if (userAndToken.token) {
+
+  if (userDetail.username) {
     navigate("/");
   }
 
-  console.log(userAndToken, "userandtoken signup");
 
   return (
     <form className="Profile-form" onSubmit={handleSubmit}>
@@ -105,7 +105,7 @@ export default function Signup({ handleSave }) {
           aria-label="email"
         />
       </div>
-      {userAndToken.error && <Alert error={userAndToken.error} />}
+      {userDetail.error && <Alert error={userDetail.error} />}
       <button className="btn-primary rig btn btn-sm newSignup-form-addBtn">
         Submit
       </button>

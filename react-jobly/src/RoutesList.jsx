@@ -1,5 +1,6 @@
-import React from "react";
+import {React, useContext} from "react"
 import { Routes, Route, Navigate } from "react-router-dom";
+import userContext from "./userContext";
 import CompaniesList from "./CompaniesList.jsx";
 import CompanyDetails from "./CompanyDetails.jsx";
 import JobsList from "./JobsList.jsx";
@@ -20,18 +21,26 @@ import Profile from "./Profile.jsx";
  */
 
 export default function RoutesList({userFunctions}) {
+  const { userAndToken } = useContext(userContext);
+
   return (
     <div>
+        {userAndToken?.token ?
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/companies" element={<CompaniesList />} />
-        <Route path="/companies/:handle" element={<CompanyDetails />} />
-        <Route path="/jobs" element={<JobsList />} />
-        <Route path="/login" element={<Login handleSave={userFunctions.login}/>} />
-        <Route path="/signup" element={<Signup handleSave={userFunctions.signup}/>} />
-        <Route path="/profile" element={<Profile handleSave={userFunctions.profile}/>} />
+          <Route path="/companies" element={<CompaniesList />} />
+          <Route path="/companies/:handle" element={<CompanyDetails />} />
+          <Route path="/jobs" element={<JobsList />} />
+          <Route path="/profile" element={<Profile handleSave={userFunctions.profile}/>} />
+          <Route path="/logout" element={<Navigate to="/" />} />
+          <Route path="/" element={<Homepage />} />
         <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+        </Routes>
+         :<Routes>
+          <Route path="/login" element={<Login handleSave={userFunctions.login}/>} />
+          <Route path="/signup" element={<Signup handleSave={userFunctions.signup}/>} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+          </Routes>}
     </div>
   );
 }
