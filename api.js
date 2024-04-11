@@ -120,6 +120,14 @@ class JoblyApi {
     return res;
   }
 
+  /** Get user detail-- all info. */
+
+  static async getUserDetail(username, token) {
+    JoblyApi.token(token);
+    let userDetail = await this.request(`users/${username}`);
+    return userDetail;
+  }
+
 
   // obviously, you'll add a lot here ...
 }

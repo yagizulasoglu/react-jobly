@@ -1,6 +1,7 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
+import Alert from './Alert.jsx'
 
 /**
  * Renders Signup.
@@ -41,8 +42,10 @@ export default function Signup({ handleSave }) {
     });
   }
   if (userAndToken.token) {
-      navigate("/");
-    }
+    navigate("/");
+  }
+
+  console.log(userAndToken, "userandtoken signup");
 
   return (
     <form className="Profile-form" onSubmit={handleSubmit}>
@@ -102,6 +105,7 @@ export default function Signup({ handleSave }) {
           aria-label="email"
         />
       </div>
+      {userAndToken.error && <Alert error={userAndToken.error} />}
       <button className="btn-primary rig btn btn-sm newSignup-form-addBtn">
         Submit
       </button>

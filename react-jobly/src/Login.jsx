@@ -1,6 +1,7 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
+import Alert from './Alert.jsx'
 
 /**
  * Renders Login.
@@ -64,6 +65,8 @@ export default function Login({ handleSave }) {
           aria-label="Password"
         />
       </div>
+      {userAndToken.error &&
+      <Alert error={userAndToken.error} />}
       <button className="btn-primary rig btn btn-sm newLogin-form-addBtn">
         Login
       </button>
