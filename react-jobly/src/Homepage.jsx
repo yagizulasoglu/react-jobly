@@ -16,12 +16,13 @@ import { Link } from "react-router-dom";
 
 export default function Homepage(){
     const { userDetail } = useContext(userContext);
+    console.log(userDetail, "homepage")
 
     return (
         <main className="Homepage">
             <div>
-                {userDetail?.firstName ? <div className="Homepage-User">
-                    <h1>Welcome {userDetail.firstName}</h1>
+                {userDetail?.username ? <div className="Homepage-User">
+                    <h1>Welcome {userDetail.username}</h1>
                     </div> :
                     <div className="Homepage-Anon">
                     <h1>Jobly!</h1>

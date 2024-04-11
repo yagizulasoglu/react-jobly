@@ -108,7 +108,7 @@ class JoblyApi {
   static async signup(username, password, firstName, lastName, email) {
     let newUserInfo = { username, password, firstName, lastName, email };
     let res = await this.request("auth/register", newUserInfo, "POST");
-    return {token: res.token, userDetail: newUserInfo};
+    return { token: res.token, userDetail: newUserInfo };
   }
 
   /** Edit user profile. */
@@ -123,9 +123,9 @@ class JoblyApi {
 
   static async getUserDetail(username) {
     let userDetail = await this.request(`users/${username}`);
+    console.log(userDetail, "insideAPI");
     return userDetail;
   }
-
 
   // obviously, you'll add a lot here ...
 }

@@ -1,7 +1,7 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
-import Alert from './Alert.jsx'
+import Alert from "./Alert.jsx";
 
 /**
  * Renders Login.
@@ -33,10 +33,12 @@ export default function Login({ handleSave }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleSave(formData.Username, formData.password);
-    setFormData({ username: "",
-    password: ""});
+    setFormData({ username: "", password: "" });
   }
-  if (userDetail.username) {
+ 
+
+  console.log(userDetail, "userDetail in login comp");
+  if (userDetail?.username) {
     navigate("/");
   }
 
@@ -65,8 +67,7 @@ export default function Login({ handleSave }) {
           aria-label="Password"
         />
       </div>
-      {userDetail.error &&
-      <Alert error={userDetail.error} />}
+      {userDetail.error && <Alert error={userDetail.error} />}
       <button className="btn-primary rig btn btn-sm newLogin-form-addBtn">
         Login
       </button>
