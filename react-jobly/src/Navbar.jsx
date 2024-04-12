@@ -16,8 +16,8 @@ import { NavLink } from "react-router-dom";
  */
 
 export default function Navbar({logout}) {
-
   const { userDetail } = useContext(userContext);
+  //TODO: possible func. decomposition here for what links the user can access. "function navLinksForLogin()"
   return (
     <div>
       {userDetail?.user ? <div>
@@ -25,7 +25,7 @@ export default function Navbar({logout}) {
         <NavLink to="/companies">Companies</NavLink>
         <NavLink to="/jobs">Jobs</NavLink>
         <NavLink to="/profile">Profile</NavLink>
-        <NavLink to="/logout" onClick={logout}>Logout {userDetail.user.username}</NavLink>
+        <NavLink to="/" onClick={logout}>Logout {userDetail.user.username}</NavLink>
       </div> : <div>
       <NavLink to="/">Jobly</NavLink>
       <NavLink to="/login">Login</NavLink>

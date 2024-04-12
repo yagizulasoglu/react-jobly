@@ -1,13 +1,14 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
-import Alert from './Alert.jsx'
+import Alert from "./Alert.jsx";
 
 /**
  * Renders Signup.
  *
  * State:
  * formData
+ * errors
  *
  * Props:
  * handleSave
@@ -16,9 +17,16 @@ import Alert from './Alert.jsx'
  */
 
 export default function Signup({ handleSave }) {
-  const [formData, setFormData] = useState({username: "", password: "", firstName: "", lastName: "", email:""});
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+  const [errors, setErrors] = useState([]);
   const { userDetail } = useContext(userContext);
+  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -30,22 +38,22 @@ export default function Signup({ handleSave }) {
   }
 
   //if successful--redirect them to the homepage**
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    handleSave(formData);
-    setFormData({
-      username: "",
-      password: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-    });
+    try {
+      await handleSave(formData);
+      setFormData({
+        username: "",
+        password: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+      });
+      navigate("/");
+    } catch (err) {
+      setErrors(err);
+    }
   }
-
-  if (userDetail.username) {
-    navigate("/");
-  }
-
 
   return (
     <form className="Profile-form" onSubmit={handleSubmit}>
@@ -105,7 +113,12 @@ export default function Signup({ handleSave }) {
           aria-label="email"
         />
       </div>
-      {userDetail.error && <Alert error={userDetail.error} />}
+      {errors.length > 0 &&
+        errors.map((error, i) => (
+          <div key={i}>
+            <Alert error={error} />
+          </div>
+        ))}
       <button className="btn-primary rig btn btn-sm newSignup-form-addBtn">
         Submit
       </button>

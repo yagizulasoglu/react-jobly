@@ -4,7 +4,7 @@ import RoutesList from "./RoutesList.jsx";
 import Navbar from "./Navbar.jsx";
 import userContext from "./userContext.js";
 import JoblyApi from "../../api.js";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 /** Component for entire Jobly app.
  *
@@ -15,54 +15,61 @@ import {jwtDecode} from "jwt-decode";
  */
 
 function App() {
-  const [userDetail, setUserDetail] = useState({});
+  const [userDetail, setUserDetail] = useState(null);
   const [token, setToken] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
+  /** Fetch user detail every time a change in user and token is detected. */
+  //TODO: put this at the top since it will always run -- after state.
+  useEffect(
+    function fetchUserFullDetail() {
+      async function fetchUserDetail() {
+        // setIsLoading(true);
+        if (token) {
+          JoblyApi.token = token;
+          let decodedToken = jwtDecode(token);
+          let username = decodedToken.username;
+          try {
+            let userInfo = await JoblyApi.getUserDetail(username);
+            setUserDetail(userInfo);
+            setIsLoading(false);
+          } catch (err) {
+            setIsLoading(false);
+          }
+        } else {
+          setUserDetail(null);
+          setIsLoading(false);
+        }
+      }
+      fetchUserDetail();
+    },
+    [token]
+  );
   console.log("app renders:", token, "token", userDetail, "userDetail");
 
   /** Calls api to return token on user login. */
 
   async function login(username, password) {
-    setIsLoading(true);
-    let userFromAPI;
-
-    try {
-      userFromAPI = await JoblyApi.login(username, password); //returns token
-      setToken(userFromAPI);
-      setIsLoading(false);
-    } catch (err) {
-      setUserDetail({ error: err[0] });
-      setIsLoading(false);
-    }
+    const userFromAPI = await JoblyApi.login(username, password); //returns token
+    setToken(userFromAPI);
   }
 
   function logout() {
     setToken("");
-    setUserDetail({});
-    return <Navigate to="/" />;
   }
 
   /** Calls api to return token on new user signup. */
   async function signup({ username, password, firstName, lastName, email }) {
-    setIsLoading(true);
     let newUserFromAPI;
-    try {
-      newUserFromAPI = await JoblyApi.signup(
-        username,
-        password,
-        firstName,
-        lastName,
-        email
-      );
-      setToken(newUserFromAPI.token);
-      setIsLoading(false);
-    } catch (err) {
-      setUserDetail({ error: err[0] });
-      setIsLoading(false);
-    }
+    newUserFromAPI = await JoblyApi.signup(
+      username,
+      password,
+      firstName,
+      lastName,
+      email
+    );
+    setToken(newUserFromAPI.token);
   }
-
 
   /** Calls api to retrieve user information and returns updated user info. */
   async function profile(username, firstName, lastName, email) {
@@ -74,38 +81,6 @@ function App() {
     );
     setUserAndToken(userProfileFromAPI);
   }
-
-  /** Fetch user detail every time a change in user and token is detected. */
-
-  useEffect(
-    function fetchUserFullDetail() {
-      async function fetchUserDetail() {
-        console.log("useEffect running in App");
-        setIsLoading(true);
-        if (token) {
-          JoblyApi.token = token;
-          let decodedToken = jwtDecode(token)
-          let username = decodedToken.username
-          username = decodedToken.username;
-          console.log("made here");
-          console.log(username, "username");
-          try {
-            let userInfo = await JoblyApi.getUserDetail(username);
-            console.log(userInfo, "userinfo inside useEffect");
-            setUserDetail(userInfo);
-            setIsLoading(false);
-          } catch (err) {
-            setIsLoading(false);
-            setUserDetail({ error: err[0] });
-          }
-        } else {
-          setIsLoading(false);
-        }
-      }
-      fetchUserDetail();
-    },
-    [token]
-  );
 
   const userFunctions = {
     login: login,

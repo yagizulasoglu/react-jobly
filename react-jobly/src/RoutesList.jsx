@@ -23,6 +23,7 @@ import Profile from "./Profile.jsx";
 export default function RoutesList({userFunctions}) {
   const { userDetail } = useContext(userContext);
 
+  //TODO: func. decomposition here as well like Navbar.
   return (
     <div>
         {userDetail?.user ?
@@ -31,7 +32,6 @@ export default function RoutesList({userFunctions}) {
           <Route path="/companies/:handle" element={<CompanyDetails />} />
           <Route path="/jobs" element={<JobsList />} />
           <Route path="/profile" element={<Profile handleSave={userFunctions.profile}/>} />
-          <Route path="/logout" element={<Navigate to="/" />} />
           <Route path="/" element={<Homepage />} />
         <Route path="*" element={<Navigate to="/" />} />
         </Routes>

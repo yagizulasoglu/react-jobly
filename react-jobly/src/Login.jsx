@@ -1,6 +1,6 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Alert from "./Alert.jsx";
 
 /**
@@ -8,15 +8,18 @@ import Alert from "./Alert.jsx";
  *
  * State:
  * formData
+ * errors
  *
  * Props:
  * handleSave
  *
  * App -> RoutesList -> Login
  */
-//TODO: Error state in here.
+
 export default function Login({ handleSave }) {
-  const [formData, setFormData] = useState({username: "", password: ""});
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
   const { userDetail } = useContext(userContext);
 
   /** Update form input. */
@@ -29,18 +32,16 @@ export default function Login({ handleSave }) {
   }
 
   //redirect if successful***
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    //TODO: try/catch in here, handleSave is async
-    handleSave(formData.username, formData.password);
-    setFormData({ username: "", password: "" });
+    try {
+      await handleSave(formData.username, formData.password);
+      setFormData({ username: "", password: "" });
+      navigate("/");
+    } catch (err) {
+      setErrors(err);
+    }
   }
-
-
-  if (userDetail.user) {
-    return <Navigate to="/" />;
-  }
-
 
   return (
     <form className="Login-form" onSubmit={handleSubmit}>
@@ -67,7 +68,12 @@ export default function Login({ handleSave }) {
           aria-label="Password"
         />
       </div>
-      {userDetail.error && <Alert error={userDetail.error} />}
+      {errors.length > 0 &&
+        errors.map((error, i) => (
+          <div key={i}>
+            <Alert error={error} />
+          </div>
+        ))}
       <button className="btn-primary rig btn btn-sm newLogin-form-addBtn">
         Login
       </button>
