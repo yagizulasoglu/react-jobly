@@ -1,5 +1,6 @@
 import { useState, React } from "react";
 import convertAndFormat from "../../convertAndFormat";
+import "./Jobs.css";
 
 /**
  * Renders JobCard.

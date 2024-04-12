@@ -2,6 +2,7 @@ import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "./Alert.jsx";
+import "./Signup.css";
 
 /**
  * Renders Signup.

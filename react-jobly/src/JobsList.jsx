@@ -2,6 +2,7 @@ import { useState, React, useEffect } from "react";
 import JobCardList from "./JobCardList";
 import SearchForm from "./SearchForm";
 import JoblyApi from "../../api";
+import "./Jobs.css";
 
 /**
  * Renders list of jobs.
@@ -16,7 +17,7 @@ import JoblyApi from "../../api";
  *
  * App -> RoutesList -> JobsList
  */
-//TODO: monostate
+
 function JobsList() {
   const [jobsList, setJobsList] = useState([]);
   const [titleAndLoading, setTitleAndLoading] = useState({ title: "All jobs", loading: true });

@@ -1,6 +1,7 @@
 import { React, useContext } from "react";
 import userContext from "./userContext";
 import { NavLink } from "react-router-dom";
+import "./Navbar.css";
 
 /*
  *  Renders the Navbar
@@ -20,22 +21,22 @@ export default function Navbar({ logout }) {
 
   function loggedInView() {
     return (
-      <div>
-        <NavLink to="/">Jobly</NavLink>
-        <NavLink to="/companies">Companies</NavLink>
-        <NavLink to="/jobs">Jobs</NavLink>
-        <NavLink to="/profile">Profile</NavLink>
-        <NavLink to="/" onClick={logout}>Logout {userDetail.user.username}</NavLink>
+      <div className="Navbar">
+        <NavLink className="Navbar_Left" to="/">Jobly</NavLink>
+        <NavLink className="Navbar_Right_Companies" to="/companies">Companies</NavLink>
+        <NavLink className="Navbar_Right_Jobs" to="/jobs">Jobs</NavLink>
+        <NavLink className="Navbar_Right_Profile" to="/profile">Profile</NavLink>
+        <NavLink className="Navbar_Right_Logout" to="/" onClick={logout}>Logout {userDetail.user.username}</NavLink>
       </div>
     );
   }
 
   function notLoggedInView() {
     return (
-      <div>
-        <NavLink to="/">Jobly</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/signup">Signup</NavLink>
+      <div className="Navbar">
+        <NavLink className="Navbar_Left" to="/">Jobly</NavLink>
+        <NavLink className="Navbar_Right" to="/login">Login</NavLink>
+        <NavLink className="Navbar_Right" to="/signup">Signup</NavLink>
       </div>
     );
   }

@@ -1,0 +1,24 @@
+.Navbar_Left {
+  padding-left: 5px;
+  position: absolute;
+}
+
+.Navbar_Right_Logout {
+  position: absolute;
+  right: 0px;
+}
+
+.Navbar_Right_Profile {
+  position: absolute;
+  right: 110px;
+}
+
+.Navbar_Right_Jobs {
+  position: absolute;
+  right: 170px;
+}
+
+.Navbar_Right_Companies {
+  position: absolute;
+  right: 220px;
+}

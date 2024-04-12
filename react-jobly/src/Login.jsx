@@ -2,6 +2,7 @@ import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "./Alert.jsx";
+import "./Login.css";
 
 /**
  * Renders Login.
@@ -71,7 +72,7 @@ export default function Login({ handleSave }) {
       {errors.length > 0 &&
         errors.map((error, i) => (
           <div key={i}>
-            <Alert message={error} color='red'/>
+            <Alert message={error} color='red' />
           </div>
         ))}
       <button className="btn-primary rig btn btn-sm newLogin-form-addBtn">

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CompanyCard from "./CompanyCard";
 import SearchForm from "./SearchForm";
 import JoblyApi from "../../api";
+import "./Companies.css";
 
 /**
  * State:
@@ -20,7 +21,7 @@ function CompaniesList() {
 
   /** Calls API to display all companies. */
   useEffect(function fetchAllCompanies() {
-    setTitleAndLoading({...titleAndLoading, loading:true});
+    setTitleAndLoading({ ...titleAndLoading, loading: true });
     async function fetchCompanies() {
       const companies = await JoblyApi.getAllCompanies();
       setCompaniesList(companies);
@@ -30,7 +31,7 @@ function CompaniesList() {
   }, []);
 
   async function search(word) {
-    setTitleAndLoading({...titleAndLoading, loading:true});
+    setTitleAndLoading({ ...titleAndLoading, loading: true });
     let userWord = word.trim();
     const searched = await JoblyApi.searchCompany(userWord);
     setCompaniesList(searched);

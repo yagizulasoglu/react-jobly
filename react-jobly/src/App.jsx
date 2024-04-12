@@ -5,6 +5,7 @@ import Navbar from "./Navbar.jsx";
 import userContext from "./userContext.js";
 import JoblyApi from "../../api.js";
 import { jwtDecode } from "jwt-decode";
+import "./App.css";
 
 /** Component for entire Jobly app.
  *
@@ -105,8 +106,8 @@ function App() {
           </div>
         ) : (
           <userContext.Provider value={{ userDetail }}>
-            <BrowserRouter>
-              <Navbar logout={userFunctions.logout} />
+            <BrowserRouter className="Browser">
+              <Navbar className="Navbar" logout={userFunctions.logout} />
               <RoutesList userFunctions={userFunctions} />
             </BrowserRouter>
           </userContext.Provider>

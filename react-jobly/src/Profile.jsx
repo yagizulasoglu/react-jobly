@@ -2,6 +2,7 @@ import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
+import "./Profile.css";
 /**
  * Renders Profile.
  *
@@ -19,7 +20,7 @@ export default function Profile({ handleSave }) {
     message: null,
     color: null,
   });
-  
+
   const { userDetail } = useContext(userContext);
   const [formData, setFormData] = useState({
     username: userDetail.user.username,
