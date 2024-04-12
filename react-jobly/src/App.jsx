@@ -16,15 +16,16 @@ import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [userDetail, setUserDetail] = useState(null);
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [isLoading, setIsLoading] = useState(false);
 
+
   /** Fetch user detail every time a change in user and token is detected. */
-  //TODO: put this at the top since it will always run -- after state.
   useEffect(
     function fetchUserFullDetail() {
       async function fetchUserDetail() {
-        // setIsLoading(true);
+        setIsLoading(true);
+        // const storageToken = localStorage.getItem("token");
         if (token) {
           JoblyApi.token = token;
           let decodedToken = jwtDecode(token);
@@ -32,8 +33,9 @@ function App() {
           try {
             let userInfo = await JoblyApi.getUserDetail(username);
             setUserDetail(userInfo);
-            setIsLoading(false);
           } catch (err) {
+            console.log(err);
+          } finally {
             setIsLoading(false);
           }
         } else {
@@ -50,11 +52,14 @@ function App() {
   /** Calls api to return token on user login. */
 
   async function login(username, password) {
+    //TODO: rename
     const userFromAPI = await JoblyApi.login(username, password); //returns token
+    localStorage.setItem("token", userFromAPI);
     setToken(userFromAPI);
   }
 
   function logout() {
+    localStorage.clear();
     setToken("");
   }
 
@@ -68,6 +73,7 @@ function App() {
       lastName,
       email
     );
+    localStorage.setItem("token", newUserFromAPI.token);
     setToken(newUserFromAPI.token);
   }
 

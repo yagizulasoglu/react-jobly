@@ -1,4 +1,4 @@
-import {React, useContext} from "react"
+import { React, useContext } from "react";
 import userContext from "./userContext";
 import { Link } from "react-router-dom";
 
@@ -14,23 +14,34 @@ import { Link } from "react-router-dom";
  * App -> RoutesList -> Homepage
  */
 
-export default function Homepage(){
+export default function Homepage() {
     const { userDetail } = useContext(userContext);
-    console.log(userDetail, "homepage")
+
+    function loggedInView() {
+        return (
+            <div className="Homepage-User">
+                <h1>Welcome {userDetail.user.firstName}</h1>
+            </div>
+        );
+    }
+
+    function loggedOutView() {
+        return (
+            <div className="Homepage-Anon">
+                <h1>Jobly!</h1>
+                <h3>All the jobs in one, convenient place.</h3>
+                <button><Link to="/login">Login</Link></button>
+                <button><Link to="/signup">Sign Up</Link></button>
+            </div>
+        );
+    }
+
 
     return (
         <main className="Homepage">
             <div>
-                {userDetail?.user?.firstName ? <div className="Homepage-User">
-                    <h1>Welcome {userDetail.user.firstName}</h1>
-                    </div> :
-                    <div className="Homepage-Anon">
-                    <h1>Jobly!</h1>
-                    <h3>All the jobs in one, convenient place.</h3>
-                    <button><Link to="/login">Login</Link></button>
-                    <button><Link to="/signup">Sign Up</Link></button>
-                </div>}
+                {userDetail ? loggedInView() : loggedOutView()}
             </div>
         </main>
-    )
+    );
 }

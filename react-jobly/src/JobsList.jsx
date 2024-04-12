@@ -16,7 +16,7 @@ import JoblyApi from "../../api";
  *
  * App -> RoutesList -> JobsList
  */
-
+//TODO: monostate
 function JobsList() {
   const [jobsList, setJobsList] = useState([]);
   const [titleAndLoading, setTitleAndLoading] = useState({ title: "All jobs", loading: true });
