@@ -1,24 +1,74 @@
 .Navbar_Left {
   padding-left: 5px;
   position: absolute;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
 }
 
 .Navbar_Right_Logout {
   position: absolute;
   right: 0px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+}
+.Navbar_Right_Logout:hover {
+  color: rgb(234, 234, 53);
 }
 
 .Navbar_Right_Profile {
   position: absolute;
-  right: 110px;
+  right: 180px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
 }
 
 .Navbar_Right_Jobs {
   position: absolute;
-  right: 170px;
+  right: 280px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
 }
 
 .Navbar_Right_Companies {
   position: absolute;
-  right: 220px;
+  right: 360px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+}
+
+.Navbar_Right_Signup {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  left: 840px;
+  font-size: 25px;
+}
+
+.Navbar_Right_Login {
+  text-decoration: none;
+  color: white;
+  top: 0;
+  left: 980px;
+  cursor: pointer;
+  position: relative;
+  font-size: 25px;
+}
+
+.Navbar {
+  /* width:100%; */
+  position: absolute;
+  background-color: rgb(186, 115, 28);
+  bottom: 4px;
+  height: 50px;
 }

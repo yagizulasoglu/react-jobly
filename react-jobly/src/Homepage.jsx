@@ -16,33 +16,38 @@ import "./Homepage.css";
  */
 
 export default function Homepage() {
-    const { userDetail } = useContext(userContext);
+  const { userDetail } = useContext(userContext);
 
-    function loggedInView() {
-        return (
-            <div className="Homepage-User">
-                <h1>Welcome {userDetail.user.firstName}</h1>
-            </div>
-        );
-    }
-
-    function loggedOutView() {
-        return (
-            <div className="Homepage-Anon">
-                <h1>Jobly!</h1>
-                <h3>All the jobs in one, convenient place.</h3>
-                <button><Link to="/login">Login</Link></button>
-                <button><Link to="/signup">Sign Up</Link></button>
-            </div>
-        );
-    }
-
-
+  function loggedInView() {
     return (
-        <main className="Homepage">
-            <div>
-                {userDetail ? loggedInView() : loggedOutView()}
-            </div>
-        </main>
+      <div className="Homepage">
+        <h1>Welcome {userDetail.user.firstName}</h1>
+      </div>
     );
+  }
+
+  function loggedOutView() {
+    return (
+      <div className="Homepage-user">
+        <h1 className="Homepage-title">Jobly!</h1>
+        <h3 className="Homepage-sub-title">
+          All the jobs in one, convenient place.
+        </h3>
+        <div className="buttons-container">
+          <Link to="/login" className="Homepage-buttons1">
+            Login
+          </Link>
+          <Link to="/signup" className="Homepage-buttons2">
+            Sign Up
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <main className="Homepage-anon">
+      <div>{userDetail ? loggedInView() : loggedOutView()}</div>
+    </main>
+  );
 }

@@ -48,12 +48,12 @@ function CompaniesList() {
     <div className="CompaniesList">
       {titleAndLoading.loading ? <p>Loading...</p> : <div>
         <SearchForm handleSearch={search} />
-        <h1>{titleAndLoading.title}</h1>
+        <h1 className="CompaniesList-title">{titleAndLoading.title}</h1>
         <ul>
           {companiesList.map((company) => (
-            <li key={company.handle}>
+            <p key={company.handle}>
               <CompanyCard company={company} />
-            </li>
+            </p>
           ))}
         </ul>
       </div>}

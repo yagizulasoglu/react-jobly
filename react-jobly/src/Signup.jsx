@@ -71,7 +71,7 @@ export default function Signup({ handleSave }) {
         />
       </div>
       <div className="mb-3">
-        <textarea
+        <input
           id="newSignup-form-password"
           name="password"
           className="form-control"
@@ -79,10 +79,11 @@ export default function Signup({ handleSave }) {
           onChange={handleChange}
           value={formData.password}
           aria-label="password"
+          type="password"
         />
       </div>
       <div className="mb-3">
-        <textarea
+        <input
           id="newSignup-form-firstname"
           name="firstName"
           className="form-control"
@@ -93,7 +94,7 @@ export default function Signup({ handleSave }) {
         />
       </div>
       <div className="mb-3">
-        <textarea
+        <input
           id="newSignup-form-lastname"
           name="lastName"
           className="form-control"
@@ -104,7 +105,7 @@ export default function Signup({ handleSave }) {
         />
       </div>
       <div className="mb-3">
-        <textarea
+        <input
           id="newSignup-form-email"
           name="email"
           className="form-control"

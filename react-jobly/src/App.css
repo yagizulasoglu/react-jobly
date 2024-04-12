@@ -1,15 +1,28 @@
+
+/* App. */
+
 .Navbar {
   width: 100%;
-  background-color: rgb(211, 63, 63);
+  background-color: rgb(202, 188, 188);
   color: rgb(17, 17, 17);
   position: fixed;
   z-index: 3;
   top: 0;
   left: 0;
+  text-decoration: none;
 }
 
+
+
+
+
+
 .App {
-  width: 100%;
+  /* width: 100vw;
+  width: 100vh;
+  background-image: url("../public/rithm.webp");
+  background-size: cover;
+  background-position: center; */
 }
 
 .Browser {

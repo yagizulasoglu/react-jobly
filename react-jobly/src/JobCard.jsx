@@ -18,10 +18,10 @@ import "./Jobs.css";
 function JobCard({ jobData = {} }) {
   return (
     <div className="JobCard">
-      <h1>{jobData.title}</h1>
-      <h3>{jobData.companyHandle}</h3>
-      <h2>${convertAndFormat(jobData.salary)}</h2>
-      <h2>Equity: {jobData.equity}</h2>
+      <h3>{jobData.title}</h3>
+      <h4>{jobData.companyHandle}</h4>
+      <h5>${convertAndFormat(jobData.salary)}</h5>
+      <h5>Equity: {jobData.equity}</h5>
     </div>
   );
 }

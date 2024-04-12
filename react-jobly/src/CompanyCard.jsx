@@ -15,7 +15,7 @@ import "./Companies.css";
 export default function CompanyCard({ company }) {
   return (
     <div className="CompanyCard">
-      <Link to={`/companies/${company.handle}`}>
+      <Link className="CompanyCard-link" to={`/companies/${company.handle}`}>
         <h4>{company.handle}</h4>
         <p>{company.description}</p>
       </Link>

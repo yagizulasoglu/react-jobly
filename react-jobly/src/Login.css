@@ -1,0 +1,13 @@
+.Login-form{
+  margin-top: 250px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1000px;
+}
+
+
+.Login-form-container{
+width: 2000px;
+}

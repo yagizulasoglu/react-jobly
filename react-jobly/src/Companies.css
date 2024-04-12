@@ -1,0 +1,35 @@
+.CompaniesList {
+  margin-top: 80px;
+}
+
+.CompanyCard {
+  border-color: rgba(94, 74, 74, 0.709);
+  border-style: solid;
+  border-radius: 10px;
+  background-color: rgba(148, 117, 117, 0.538);
+  padding: 10px;
+  margin-right: 25px;
+  box-shadow: 1px 1px 1px 1px black;
+  cursor: pointer;
+}
+
+
+
+.CompanyCard:hover {
+  background-color: rgba(182, 157, 157, 0.538);
+}
+
+
+
+
+.CompanyCard-link {
+  text-decoration: none;
+  color: white;
+}
+
+
+
+.CompaniesList-title{
+  margin-left: 40%;
+  display: center;
+}

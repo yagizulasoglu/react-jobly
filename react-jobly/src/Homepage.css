@@ -1,6 +1,61 @@
-.Homepage-User {
-  padding: 300px;
-  display: flex;
+/* .Homepage-anon{
+  background-image: url("../public/rithm.webp");
+  max-width: 100vh;
+} */
+
+.Homepage {
+  margin-top: 350px;
   justify-content: center;
   align-items: center;
+  display: flex;
+}
+
+.Homepage-user {
+  /* direction: flex;
+  justify-content: center;
+  align-items: center; */
+  margin-top: 300px;
+  margin-left: 350px;
+}
+
+.Homepage-buttons1 {
+  margin-left: 15px;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  width: 150px;
+  text-align: center;
+  background-color: green;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px 2px black;
+}
+
+.Homepage-buttons2 {
+  margin-left: 70px;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  width: 150px;
+  background-color: green;
+  font-size: 30px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px 2px black;
+}
+
+.Homepage-buttons1:hover {
+  background-color: rgb(22, 173, 22);
+}
+
+.Homepage-buttons2:hover {
+  background-color: rgb(22, 173, 22);
+}
+
+.Homepage-title {
+  margin-left: 157px;
+}
+
+.buttons-container {
+  display: flex;
 }

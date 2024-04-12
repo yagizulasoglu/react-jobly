@@ -45,6 +45,7 @@ export default function Login({ handleSave }) {
   }
 
   return (
+    <div className="Login-form-container">
     <form className="Login-form" onSubmit={handleSubmit}>
       <div className="mb-3">
         <input
@@ -59,7 +60,7 @@ export default function Login({ handleSave }) {
         />
       </div>
       <div className="mb-3">
-        <textarea
+        <input
           id="newLogin-form-password"
           name="password"
           className="form-control"
@@ -67,6 +68,7 @@ export default function Login({ handleSave }) {
           onChange={handleChange}
           value={formData.password}
           aria-label="Password"
+          type="password"
         />
       </div>
       {errors.length > 0 &&
@@ -79,5 +81,6 @@ export default function Login({ handleSave }) {
         Login
       </button>
     </form>
+    </div>
   );
 }

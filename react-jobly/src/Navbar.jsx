@@ -35,8 +35,8 @@ export default function Navbar({ logout }) {
     return (
       <div className="Navbar">
         <NavLink className="Navbar_Left" to="/">Jobly</NavLink>
-        <NavLink className="Navbar_Right" to="/login">Login</NavLink>
-        <NavLink className="Navbar_Right" to="/signup">Signup</NavLink>
+        <NavLink className="Navbar_Right_Login" to="/login">Login</NavLink>
+        <NavLink className="Navbar_Right_Signup" to="/signup">Signup</NavLink>
       </div>
     );
   }

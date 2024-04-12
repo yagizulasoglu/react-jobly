@@ -51,8 +51,8 @@ function JobsList() {
     <div className="JobsList">
       {titleAndLoading.loading ? <p>Loading...</p> :
         <div>
-          <SearchForm handleSearch={search} />
-          <h1>{titleAndLoading.title}</h1>
+          <SearchForm handleSearch={search} className="JobsList-Search" />
+          <h1 className="JobsList-title">{titleAndLoading.title}</h1>
           <JobCardList jobsList={jobsList} />
         </div>}
     </div>

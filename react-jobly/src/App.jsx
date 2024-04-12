@@ -112,6 +112,7 @@ function App() {
             </BrowserRouter>
           </userContext.Provider>
         )}
+        <div className="background-container"></div>
       </main>
     </div>
   );
