@@ -116,7 +116,7 @@ export default function Signup({ handleSave }) {
       {errors.length > 0 &&
         errors.map((error, i) => (
           <div key={i}>
-            <Alert error={error} />
+            <Alert message={error} color="red" />
           </div>
         ))}
       <button className="btn-primary rig btn btn-sm newSignup-form-addBtn">

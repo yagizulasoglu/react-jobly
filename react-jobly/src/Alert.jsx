@@ -10,12 +10,13 @@ import { React } from "react";
  * error
  */
 
-//TODO: error type-- not just failure, but also success
 
-export default function Alert({ error }) {
+export default function Alert({ message, color }) {
+
+  console.log(color, "Color")
   return (
-    <div className="Alert" style={{backgroundColor:'red', color: 'white'}}>
-      <p>{error}</p>
+    <div className="Alert" style={{backgroundColor:color, color: 'white'}}>
+      <p>{message}</p>
     </div>
   );
 }

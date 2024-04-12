@@ -1,7 +1,7 @@
 import { useState, React, useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
-
+import Alert from "./Alert";
 /**
  * Renders Profile.
  *
@@ -14,11 +14,19 @@ import { useNavigate } from "react-router-dom";
  * App -> RoutesList -> Profile
  */
 
-//TODO: useEffect to pull user data from api and preload form in put in state.
 export default function Profile({ handleSave }) {
-  const navigate = useNavigate();
+  const [toggleAlert, setToggleAlert] = useState({
+    message: null,
+    color: null,
+  });
+  
   const { userDetail } = useContext(userContext);
-  const [formData, setFormData] = useState({username: userDetail.username});
+  const [formData, setFormData] = useState({
+    username: userDetail.user.username,
+    firstname: userDetail.user.firstName,
+    lastname: userDetail.user.lastName,
+    email: userDetail.user.email,
+  });
 
   /** Update form input. */
   function handleChange(evt) {
@@ -29,11 +37,14 @@ export default function Profile({ handleSave }) {
     }));
   }
 
-  //on success-- show alert after, not redirect
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    handleSave(formData);
-    setFormData({});
+    try {
+      await handleSave(formData);
+      setToggleAlert({ message: ["Success!"], color: "green" });
+    } catch (err) {
+      setToggleAlert({ message: err, color: "red" });
+    }
   }
 
   return (
@@ -47,7 +58,7 @@ export default function Profile({ handleSave }) {
           onChange={handleChange}
           value={formData.username}
           aria-label="Username"
-          required
+          disabled
         />
       </div>
       <div className="mb-3">
@@ -83,6 +94,13 @@ export default function Profile({ handleSave }) {
           aria-label="email"
         />
       </div>
+
+      {toggleAlert.message !== null &&
+        toggleAlert.message.map((err, i) => (
+          <div key={i}>
+            <Alert color={toggleAlert.color} message={err} />{" "}
+          </div>
+        ))}
       <button className="btn-primary rig btn btn-sm newProfile-form-addBtn">
         Save Changes
       </button>

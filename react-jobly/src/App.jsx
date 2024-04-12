@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 /** Component for entire Jobly app.
  *
  * Props: none
- * State: user
+ * State: userDetail, token, loading
  *
  * App -> Navbar / RoutesList
  */
@@ -17,15 +17,13 @@ import { jwtDecode } from "jwt-decode";
 function App() {
   const [userDetail, setUserDetail] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   /** Fetch user detail every time a change in user and token is detected. */
   useEffect(
     function fetchUserFullDetail() {
       async function fetchUserDetail() {
         setIsLoading(true);
-        // const storageToken = localStorage.getItem("token");
         if (token) {
           JoblyApi.token = token;
           let decodedToken = jwtDecode(token);
@@ -52,10 +50,10 @@ function App() {
   /** Calls api to return token on user login. */
 
   async function login(username, password) {
-    //TODO: rename
-    const userFromAPI = await JoblyApi.login(username, password); //returns token
-    localStorage.setItem("token", userFromAPI);
-    setToken(userFromAPI);
+    setIsLoading(false);
+    const tokenFromAPI = await JoblyApi.login(username, password); //returns token
+    localStorage.setItem("token", tokenFromAPI);
+    setToken(tokenFromAPI);
   }
 
   function logout() {
@@ -65,6 +63,7 @@ function App() {
 
   /** Calls api to return token on new user signup. */
   async function signup({ username, password, firstName, lastName, email }) {
+    setIsLoading(false);
     let newUserFromAPI;
     newUserFromAPI = await JoblyApi.signup(
       username,
@@ -78,14 +77,16 @@ function App() {
   }
 
   /** Calls api to retrieve user information and returns updated user info. */
-  async function profile(username, firstName, lastName, email) {
+  async function profile(formData) {
+    setIsLoading(false);
     const userProfileFromAPI = await JoblyApi.editProfile(
-      username,
-      firstName,
-      lastName,
-      email
+      formData.username,
+      formData.firstname,
+      formData.lastname,
+      formData.email
     );
-    setUserAndToken(userProfileFromAPI);
+
+    setUserDetail(userProfileFromAPI);
   }
 
   const userFunctions = {

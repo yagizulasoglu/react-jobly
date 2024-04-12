@@ -22,7 +22,6 @@ import Profile from "./Profile.jsx";
 
 export default function RoutesList({ userFunctions }) {
   const { userDetail } = useContext(userContext);
-  console.log(userDetail, "userDetail in routesList");
 
   function loggedInRoutes() {
     return (

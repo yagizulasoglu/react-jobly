@@ -114,8 +114,9 @@ class JoblyApi {
   /** Edit user profile. */
 
   static async editProfile(username, firstName, lastName, email) {
-    let editedUserInfo = { username, firstName, lastName, email };
+    let editedUserInfo = { firstName, lastName, email };
     let res = await this.request(`users/${username}`, editedUserInfo, "PATCH");
+
     return res;
   }
 
@@ -123,7 +124,6 @@ class JoblyApi {
 
   static async getUserDetail(username) {
     let userDetail = await this.request(`users/${username}`);
-    console.log(userDetail, "insideAPI");
     return userDetail;
   }
 
